@@ -11,18 +11,18 @@ import java.awt.event.WindowEvent;
 
 public class EnergetskiSistem extends Frame {
 	
-	private Plac plac;
-	private Baterija bat;
+	private Plac plac; // field
+	private Baterija bat; // battery
 	private Panel dugmePanel = new Panel();
 	
 	
-	private void populateWindow(int redovi, int kolone, int kap) {
+	private void populateWindow(int redovi, int kolone, int kap) { // rows, columns, capacity
 		plac = new Plac(redovi, kolone);
 		bat = new Baterija(kap);
 		
 		add(plac, BorderLayout.CENTER);
 		
-		Button dodaj = new Button("Dodaj");
+		Button dodaj = new Button("Dodaj"); // add a producer button
 		
 		dodaj.addActionListener((ae) -> {
 			Hidroelektrana h = new Hidroelektrana(bat);
@@ -40,7 +40,6 @@ public class EnergetskiSistem extends Frame {
 		setResizable(false);
 		
 		populateWindow(redovi, kolone, kap);
-		//add(plac, BorderLayout.NORTH);
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
