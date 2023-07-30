@@ -3,13 +3,13 @@ package energetika;
 import java.awt.Color;
 import java.util.Random;
 
-public abstract class Proizvodjac extends Parcela implements Runnable {
+public abstract class Proizvodjac extends Parcela implements Runnable { // Producer
 	
-	protected Baterija bat;
-	protected int osnovnoVreme;
-	protected int jedinice = 0;
+	protected Baterija bat; // battery
+	protected int osnovnoVreme; // starting time
+	protected int jedinice = 0; // energy units
 	
-	protected boolean uspeh = false;
+	protected boolean uspeh = false; // success
 	
 	private boolean work = false;
 	
@@ -24,20 +24,17 @@ public abstract class Proizvodjac extends Parcela implements Runnable {
 		thread.start();
 	}
 
-	public int ukupnoVreme() {
+	public int ukupnoVreme() { // total time
 		Random rand = new Random();
 		return osnovnoVreme + rand.nextInt((300 - 0) + 1) + 0;
 	}
 	
-	public abstract void proizvedi();
+	public abstract void proizvedi(); // produce energy
 	
 	@Override
 	public void run() {
-		//thread.start();
 		try {
 		while(!thread.isInterrupted()) {
-			
-			System.out.println("run proizvodjaca");
 			this.setForeground(Color.WHITE);
 			Thread.sleep(ukupnoVreme());
 			proizvedi();
@@ -46,19 +43,15 @@ public abstract class Proizvodjac extends Parcela implements Runnable {
 			}
 
 			Thread.sleep(sleepTime);
-		}
-		
-		
-		
+		}		
 		} catch (InterruptedException e) {	}
 		
 		
 	}
 	
-	public void zaustavi() {
+	public void zaustavi() { // stop the producer
 		work = false;
 		if(thread != null) thread.interrupt();
-		System.out.println("zaustavljen proizvodjac");
 	}
 
 }
