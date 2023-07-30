@@ -11,11 +11,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public abstract class Parcela extends Label {
+public abstract class Parcela extends Label { // Surface
 	
-	protected String oznaka;
-	protected Color pozadina;
-	protected boolean izabrana;
+	protected String oznaka; // mark
+	protected Color pozadina; // background
+	protected boolean izabrana; //chosen surface
 	
 	public Parcela(String oznaka, Color pozadina) {
 		this.oznaka = oznaka;
@@ -29,7 +29,6 @@ public abstract class Parcela extends Label {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
 				Parcela source = (Parcela) e.getSource();
 				((Plac)(source.getParent())).izaberiParcelu(source);
 			}
@@ -40,7 +39,7 @@ public abstract class Parcela extends Label {
 		
 	}
 	
-	public void promeniPozadinu(Color c) {
+	public void promeniPozadinu(Color c) { // change the background color 
 		setBackground(c);
 	}
 	
