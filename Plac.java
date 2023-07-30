@@ -7,13 +7,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Plac extends Panel {
+public class Plac extends Panel { // Field
 
 	
-	private Parcela [][] resetka;
-	private int redovi;
-	private int kolone;
-	private Parcela izabrana;
+	private Parcela [][] resetka; // surface grid
+	private int redovi; // rows
+	private int kolone; // columns
+	private Parcela izabrana; // chosen surface
 	
 	Plac(int redovi, int kolone) {
 		this.redovi = redovi;
@@ -23,10 +23,8 @@ public class Plac extends Panel {
 		for(int i = 0; i < redovi; i++) {
 			for(int j = 0; j < kolone; j++) {
 				if (Math.random() <= 0.7) {
-					//resetka[i][j] = new TravnataPovrs();
 					this.add(resetka[i][j] = new TravnataPovrs());
 				} else {
-					//resetka[i][j] = new VodenaPovrs();
 					this.add(resetka[i][j] = new VodenaPovrs());
 				}
 			}
@@ -34,7 +32,7 @@ public class Plac extends Panel {
 	}
 	
 	
-	public void izaberiParcelu(Parcela p) {
+	public void izaberiParcelu(Parcela p) { // choose a surface
 		if(izabrana != null) {
 			izabrana.setFont(new Font("Serif", Font.BOLD, 14));
 		}
@@ -47,7 +45,7 @@ public class Plac extends Panel {
 	
 	
 	
-	public void dodajProizvodjaca(Proizvodjac pr) {
+	public void dodajProizvodjaca(Proizvodjac pr) { // add a producer
 		
 		if(izabrana!= null) {
 			int poz;
@@ -55,60 +53,47 @@ public class Plac extends Panel {
 			for(int i = 0; i < redovi; i++) {
 				for(int j = 0; j < kolone; j++) {
 					if(izabrana == resetka[i][j]) {
-						System.out.println("izabrana: " + i + " " + j);
 						k = i; l = j;
-
-						System.out.println(k + " " + l);break;
 					}
 				}
 			}
 			
-			poz = k * redovi + l;
+			poz = k * redovi + l; // save the position of a chosen surface
 			remove(izabrana);
-			//((Proizvodjac) izabrana).zaustavi();
 			izabrana = null;
 			
 			resetka[k][l] = pr;
 			add(pr, poz);
 			
 			int voda = 0;
-			if(pr instanceof Hidroelektrana) {
+			if(pr instanceof Hidroelektrana) { // count water surfaces
 				
 				if(!(k - 1 < 0 || l - 1 < 0)) {
-					System.out.println("poz: "+ (k - 1) + " " + (l - 1));
 					if ((resetka[k-1][l-1] instanceof VodenaPovrs)) voda++;
 				}
 				if(!(k - 1 < 0 )) {
-					System.out.println("poz: " + (k - 1) + " " + (l));
 					if ((resetka[k-1][l] instanceof VodenaPovrs)) voda++;
 				}
 				if(!(k - 1 < 0 || l + 1 > kolone - 1)) {
-					System.out.println("poz: " + (k - 1) + " " + (l+1));
 					if ((resetka[k-1][l+1] instanceof VodenaPovrs)) voda++;
 				}
 				if(!(l - 1 < 0)) {
-					System.out.println("poz: " + (k) + " " + (l-1));
 					if ((resetka[k][l-1] instanceof VodenaPovrs)) voda++;
 				}
 				if(!( l + 1 > kolone - 1)) {
-					System.out.println("poz: " + (k) + " " + (l + 1));
 					if ((resetka[k][l+1] instanceof VodenaPovrs)) voda++;
 				}
 				if(!(k + 1 > redovi - 1 || l - 1 < 0)) {
-					System.out.println("poz: " + (k + 1) + " " + (l-1));
 					if ((resetka[k+1][l-1] instanceof VodenaPovrs)) voda++;
 				}
 				if(!(k + 1 > redovi - 1)) {
-					System.out.println("poz: " + (k + 1) + " " + (l));
 					if ((resetka[k+1][l] instanceof VodenaPovrs)) voda++;
 				}
 				if(!(k + 1 > redovi - 1 || l + 1 > kolone - 1)) {
-					System.out.println("poz: " + (k + 1) + " " + (l + 1));
 					if ((resetka[k+1][l+1] instanceof VodenaPovrs)) voda++;
 				} 
 				
-				((Hidroelektrana)pr).postaviVodu(voda);
-				System.out.println("voda:" + voda);
+				((Hidroelektrana)pr).postaviVodu(voda); // set water surface counter
 			}
 			
 			resetka[k][l].revalidate();
@@ -121,8 +106,7 @@ public class Plac extends Panel {
 		
 	}
 
-	public void zaustaviProizvodjace() {
-		System.out.println("zaustavi proizvodjace");
+	public void zaustaviProizvodjace() { // stop the producers
 		for(int i = 0 ; i < redovi; i ++) {
 			for(int j = 0; j < kolone; j++) {
 				if(resetka[i][j] instanceof Proizvodjac) {
