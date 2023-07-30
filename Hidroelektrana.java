@@ -2,32 +2,26 @@ package energetika;
 
 import java.awt.Color;
 
-public class Hidroelektrana extends Proizvodjac {
+public class Hidroelektrana extends Proizvodjac { // Hydroelectric Power Plant
 	
-	private int vodene;
+	private int vodene; // water surface counter
 	
 	public Hidroelektrana(Baterija bat) {
 		super(1500, bat, Color.blue, "H");
-	//	this.pozadina = Color.BLUE;
-	//	this.oznaka = "H";
 		this.vodene = 0;
-	//	this.osnovnoVreme = 1500;
 	}
 	
-	public void postaviVodu(int voda) {
+	public void postaviVodu(int voda) { // water surface counter setter
 		this.vodene = voda;
 	}
 	
 	@Override
-	public void proizvedi() {
-		System.out.println("proizvedi");
+	public void proizvedi() { // produce more energry
 		if(vodene != 0) {
-			
-			uspeh = true;
+			uspeh = true; // success
 			for(int i = 0; i < vodene; i++) {
-				jedinice++;
+				jedinice++; // energy units
 			}
-			System.out.println(uspeh);
 		} else {
 			uspeh = false; 
 		}
